@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AiderHubAtual.Models.Evento>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.data_Hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carga_Horario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Responsavel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_Hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carga_Horario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Responsavel)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_Evento">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_Evento">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_Evento">Delete</a> |
+                <a asp-action="Encerrar" asp-route-id="@item.Id_Evento">Encerrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

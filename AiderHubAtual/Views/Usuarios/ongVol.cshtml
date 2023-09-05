@@ -1,0 +1,9 @@
+﻿@inject LanguageService language
+
+
+<div class="container text-center">
+    <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Ongs" asp-action="Create">ONG</a>
+    <a class="btn btn-warning btn-lg" asp-area="" asp-controller="Voluntarios" asp-action="Create">
+        @language.GetKey("Voluntário")
+    </a>
+</div>

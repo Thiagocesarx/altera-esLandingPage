@@ -1,0 +1,143 @@
+﻿@model IEnumerable<AiderHubAtual.Models.Inscricao>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.idEvento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.idVoluntario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Confirmacao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataInscricao)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idEvento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idVoluntario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Confirmacao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataInscricao)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a> |
+                        <form class="checkInForm" method="post">
+                            <input type="hidden" name="idEvento" value="@item.idEvento" />
+                            <button type="submit" class="getLocationBtn">Check-In</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        var forms = document.getElementsByClassName("checkInForm");
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                getLocation(this); // Pass the current form as an argument
+            });
+        }
+
+        function getLocation(form) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    sendPosition(form, position);
+                });
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function sendPosition(form, position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var idEvento = form.querySelector("input[name='idEvento']").value;
+
+            // Fazer uma solicitação Ajax para obter o endereço com base no idEvento
+            $.ajax({
+                url: '/Home/GetEndereco',
+                type: 'GET',
+                data: { idEvento: idEvento },
+                success: function (response) {
+                    var address = response;
+
+                    // Enviar a posição e o endereço somente após obter o endereço na primeira solicitação
+                    sendCheckInData(address, latitude, longitude, idEvento);
+                },
+                error: function (response) {
+                    console.error("Erro ao obter o endereço: " + response);
+                }
+            });
+        }
+
+        function sendCheckInData(address, latitude, longitude, idEvento) {
+            $.ajax({
+                url: '/Home/CheckIn',
+                type: 'POST',
+                data: { address: address, deviceLatitude: latitude, deviceLongitude: longitude, idEvento: idEvento },
+                success: function (response) {
+                    $('body').html(response);
+                },
+                error: function (response) {
+                    $('body').html(response);
+                }
+            });
+        }
+
+
+        // Rest of your JavaScript code...
+
+        function showWarning(message) {
+            // Create a warning element
+            var warningElement = document.createElement("div");
+            warningElement.classList.add("warning");
+            warningElement.textContent = message;
+
+            // Append the warning element to the document body
+            document.body.appendChild(warningElement);
+
+            // Remove the warning element after 3 seconds
+            setTimeout(function () {
+                warningElement.remove();
+            }, 3000);
+        }
+    </script>

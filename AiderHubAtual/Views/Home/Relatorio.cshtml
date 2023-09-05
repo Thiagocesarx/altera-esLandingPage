@@ -1,0 +1,15 @@
+﻿﻿@{
+    ViewBag.Title = "Relatorio";
+}
+
+<h2>Relatório</h2>
+
+@using (Html.BeginForm("ExecutaMacro", "Home", FormMethod.Post))
+{
+    <input type="submit" value="Chamar Macro" />
+}
+
+@if (ViewBag.Mensagem != null)
+{
+    <div>@ViewBag.Mensagem</div>
+}

@@ -1,0 +1,78 @@
+﻿@model AiderHubAtual.Models.Ong
+
+@{
+    ViewData["Title"] = "Create";
+}
+@inject LanguageService language
+
+<h1>Create</h1>
+
+<h4>Ong</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RazaoSocial" class="control-label">corporate name</label>
+                <input asp-for="RazaoSocial" class="form-control" />
+                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeFantasia" class="control-label">@language.GetKey("Fantasy Name")</label>
+                <input asp-for="NomeFantasia" class="form-control" />
+                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cnpj" class="control-label">@language.GetKey("CNPJ")</label>
+                <input asp-for="Cnpj" class="form-control" />
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">
+                    @language.GetKey("Email")
+                </label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label">@language.GetKey("Password")</label>
+                <input type="password" asp-for="Senha" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssinaturaDigital" class="control-label">@language.GetKey("Digital Signature")</label>
+                <input asp-for="AssinaturaDigital" class="form-control" />
+                <span asp-validation-for="AssinaturaDigital" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefone" class="control-label">@language.GetKey("Telephone")</label>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endereco" class="control-label">@language.GetKey("Address")</label>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoLogo" class="control-label">@language.GetKey("Photo Logo")</label>
+                <input asp-for="FotoLogo" class="form-control" />
+                <span asp-validation-for="FotoLogo" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="Tipo" class="control-label"></label>
+                    <input asp-for="Tipo" class="form-control" />
+                    <span asp-validation-for="Tipo" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

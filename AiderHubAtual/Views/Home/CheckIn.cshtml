@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "CheckIn";
+}
+
+<h2>Check-in</h2>
+
+<button id="getLocationBtn">Get Location</button>
+<!--
+<script>
+  document.getElementById("getLocationBtn").addEventListener("click", getLocation);
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(sendLocation, handleLocationError);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function sendLocation(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    // Send the coordinates to the server using AJAX
+    $.ajax({
+      url: '@Url.Action("Resultado", "Home")',
+      type: 'POST',
+       data: { deviceLatitude: deviceLongitude, longitude: longitude },
+      success: function (result) {
+        // Redirect to the Resultado view
+        window.location.href = '@Url.Action("Resultado", "Home")';
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  function handleLocationError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+    }
+  }
+</script>-->

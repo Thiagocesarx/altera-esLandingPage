@@ -1,0 +1,12 @@
+﻿@model AiderHubAtual.Controllers.HomeController
+
+@inject LanguageService language
+
+@if ((bool)ViewBag.VoluntarioLogado == true)
+{
+    Layout = "_LayoutVoluntario";
+}
+else
+{
+    Layout = "_LayoutOng";
+}
